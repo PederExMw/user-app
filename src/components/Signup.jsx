@@ -1,36 +1,44 @@
 export default function Signup() {
   const handleSubmit = (event) => {
     event.preventDefault();
-
     const fd = new FormData(event.target);
+
     const acqChannel = fd.getAll("acquisition");
     const data = Object.fromEntries(fd.entries());
     data.acquisition = acqChannel;
     console.log(data);
+    data.password === data.confirmpassword
+      ? event.target.reset()
+      : alert("Şifreler birbiriyle uyuşmuyor");
+    event.target.reset();
   };
+
+  const notify = () => toast("Wow so easy!");
 
   return (
     <form onSubmit={handleSubmit}>
+      <div></div>
       <h2>Kayıt Olmaya Hoşgeldiniz</h2>
       <p>Kayıt Olmanız için sizden birkaç veri istemeliyiz 🫴🏻😉</p>
 
       <div className="control">
         <label htmlFor="email">Email</label>
-        <input id="email" type="email" name="email" />
+        <input id="email" type="email" name="email" required />
       </div>
 
       <div className="control-row">
         <div className="control">
           <label htmlFor="password">Sifre</label>
-          <input id="password" type="password" name="password" />
+          <input id="password" type="password" name="password" required />
         </div>
 
         <div className="control">
-          <label htmlFor="confirm-password">Sifreyi Dogrula</label>
+          <label htmlFor="confirmpassword">Sifreyi Dogrula</label>
           <input
-            id="confirm-password"
+            id="confirmpassword"
             type="password"
-            name="confirm-password"
+            name="confirmpassword"
+            required
           />
         </div>
       </div>
@@ -92,7 +100,12 @@ export default function Signup() {
 
       <div className="control">
         <label htmlFor="terms-and-conditions">
-          <input type="checkbox" id="terms-and-conditions" name="terms" />
+          <input
+            type="checkbox"
+            id="terms-and-conditions"
+            name="terms"
+            required
+          />
           Tüm koşulları okudum ve kabul ediyorum.
         </label>
       </div>
@@ -101,7 +114,7 @@ export default function Signup() {
         <button type="reset" className="button button-flat">
           Reset
         </button>
-        <button type="submit" className="button">
+        <button onClick={notify} type="submit" className="button">
           Kayıt Ol
         </button>
       </p>
