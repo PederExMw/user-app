@@ -1,11 +1,19 @@
 import { useState } from "react";
 import "./Login.css";
+import logoImg from "../assets/logo.jpg";
 
 const Login = () => {
+  <header>
+    <img src={logoImg} alt="A form and a pencil" />
+    <h1>User Login Deneme</h1>
+  </header>;
   const [enteredValues, setEnteredValues] = useState({
     email: "",
     password: "",
   });
+
+  const emailIsValid =
+    enteredValues.email !== "" && !enteredValues.email.includes("@");
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -33,6 +41,12 @@ const Login = () => {
             onChange={(event) => handleInputChange("email", event.target.value)}
             value={enteredValues.email}
           />
+          <div className="control-error">
+            {" "}
+            {emailIsValid && (
+              <p> Lütfen Geçerli Bir E-Mail adresi giriniz. </p>
+            )}{" "}
+          </div>
         </div>
 
         <div className="control no-margin">

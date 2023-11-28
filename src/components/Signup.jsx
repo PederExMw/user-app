@@ -93,6 +93,18 @@ export default function Signup() {
         </div>
 
         <div className="control">
+          <input
+            type="checkbox"
+            id="Social"
+            name="acquisition"
+            value="Sosyal Medya'dan"
+          />
+          <label htmlFor="google">
+            Sosyal Medya'dan (Twitter, Instagram vs.)
+          </label>
+        </div>
+
+        <div className="control">
           <input type="checkbox" id="other" name="acquisition" value="Diğer" />
           <label htmlFor="other">Diğer</label>
         </div>
