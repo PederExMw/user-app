@@ -1,8 +1,25 @@
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../Firebase2";
+import { useState } from "react";
+
 export default function Signup() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const signUp = (e) => {
+    e.preventDefault();
+    signInWithEmailAndPassword(auth, email, password)
+      .then((useCredential) => {
+        console.log(useCredential);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const fd = new FormData(event.target);
-
     const acqChannel = fd.getAll("acquisition");
     const data = Object.fromEntries(fd.entries());
     data.acquisition = acqChannel;
@@ -13,23 +30,33 @@ export default function Signup() {
     event.target.reset();
   };
 
-  const notify = () => toast("Wow so easy!");
-
   return (
     <form onSubmit={handleSubmit}>
       <div></div>
-      <h2>Kayıt Olmaya Hoşgeldiniz</h2>
+      <h2>Kayıt</h2>
       <p>Kayıt Olmanız için sizden birkaç veri istemeliyiz 🫴🏻😉</p>
 
       <div className="control">
         <label htmlFor="email">Email</label>
-        <input id="email" type="email" name="email" required />
+        <input
+          id="email"
+          type="email"
+          name="email"
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
       </div>
 
       <div className="control-row">
         <div className="control">
           <label htmlFor="password">Sifre</label>
-          <input id="password" type="password" name="password" required />
+          <input
+            id="password"
+            type="password"
+            name="password"
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
         </div>
 
         <div className="control">
@@ -123,10 +150,13 @@ export default function Signup() {
       </div>
 
       <p className="form-actions">
+        <a href="Login">
+          <button className="button btn3"> Giriş Yap </button>
+        </a>
         <button type="reset" className="button button-flat">
           Reset
         </button>
-        <button onClick={notify} type="submit" className="button">
+        <button type="submit" className="button">
           Kayıt Ol
         </button>
       </p>
